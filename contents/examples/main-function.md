@@ -10,13 +10,20 @@ The `main` function can accpet the command-line arguments and returns `error` or
 <BallerinaCodeBlock
 filePath="main_function.bal"
 initialCommand="bal run main_function.bal"
-initialOutput="5"
+initialOutput={
+`5
+error: Input should less than 3`
+}
 source={`import ballerina/io;
 
 // The \`main\` function can accept command-line arguments and return \`error\` or \`nil\`.
 public function main() returns error? {
     int value = 5;
     io:println(value);
+
+    if value >= 3 {
+        return error("Input should less than 3");
+    }
 }
 
 `}
