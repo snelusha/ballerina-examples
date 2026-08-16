@@ -1,6 +1,7 @@
 import "~/app/globals.css";
 
 import localFont from "next/font/local";
+import { JetBrains_Mono } from "next/font/google";
 import { BallerinaProvider } from "~/components/ballerina-provider";
 import { Navbar } from "~/components/nav-bar";
 import { NavbarMobileProvider } from "~/components/nav-mobile";
@@ -14,9 +15,9 @@ const callingCode = localFont({
   variable: "--font-calling-code",
 });
 
-const iosevka = localFont({
-  src: "./fonts/Iosevka-Regular.ttf",
-  variable: "--font-iosevka",
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -39,7 +40,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={cn(callingCode.variable, iosevka.variable, "h-full antialiased", "font-sans")}
+      className={cn(
+        callingCode.variable,
+        jetBrainsMono.variable,
+        "h-full antialiased",
+        "font-sans",
+      )}
     >
       <body className="min-h-full flex flex-col">
         <BallerinaProvider>
