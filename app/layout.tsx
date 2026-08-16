@@ -7,7 +7,7 @@ import { NavbarMobileProvider } from "~/components/nav-mobile";
 import { Sidebar } from "~/components/side-bar";
 import { cn } from "~/lib/utils";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 const callingCode = localFont({
   src: "./fonts/calling-code.woff2",
@@ -26,6 +26,13 @@ export const metadata: Metadata = {
   },
   description:
     "Ballerina by Example enables you to have complete coverage over the language, while emphasizing incremental learning. This is a series of commented example programs.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
