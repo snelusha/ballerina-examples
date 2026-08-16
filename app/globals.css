@@ -127,7 +127,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50 scrollbar-thin [scrollbar-color:gray_transparent];
+    @apply border-border outline-ring/50 scrollbar-thin [scrollbar-color:gray_transparent] selection:text-[#3a5bc7] selection:bg-[#edf2fe];
   }
   body {
     @apply bg-background text-foreground;
