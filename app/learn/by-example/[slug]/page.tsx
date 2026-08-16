@@ -17,6 +17,12 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
+export async function generateStaticParams() {
+  return allExamples.map((example) => ({
+    slug: example.slug,
+  }));
+}
+
 export default async function Page({ params }: Props) {
   const { slug } = await params;
 
