@@ -32,14 +32,10 @@ export function BallerinaCodeBlock({
   const [source, setSource] = useState(initialSource);
   const [output, setOutput] = useState(initialOutput);
   const [isRunning, setIsRunning] = useState(false);
-  const [outputMinLines, setOutputMinLines] = useState(() =>
-    lineCount(initialOutput),
-  );
+  const [outputMinLines, setOutputMinLines] = useState(() => lineCount(initialOutput));
   const highlightedCode = useRef<HTMLPreElement>(null);
   const { error, isReady, run } = useBallerina();
-  const displayedOutput = withoutTrailingNewline(
-    error ? error.message : output,
-  );
+  const displayedOutput = withoutTrailingNewline(error ? error.message : output);
 
   useEffect(() => {
     setOutputMinLines((current) => Math.max(current, lineCount(displayedOutput)));
@@ -61,9 +57,7 @@ export function BallerinaCodeBlock({
     try {
       await run(filePath, { colors: false, stderr: writer, stdout: writer });
     } catch (runError) {
-      setOutput(
-        runError instanceof Error ? runError.message : String(runError),
-      );
+      setOutput(runError instanceof Error ? runError.message : String(runError));
     } finally {
       setIsRunning(false);
     }
@@ -72,9 +66,7 @@ export function BallerinaCodeBlock({
   return (
     <section className="not-typeset border my-6 overflow-hidden">
       <div className="flex items-center justify-between border-b px-4 py-2">
-        <span className="font-mono text-muted-foreground text-xs">
-          {filePath}
-        </span>
+        <span className="font-mono text-muted-foreground text-xs">{filePath}</span>
         {source !== initialSource && (
           <HugeiconsIcon
             className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
@@ -94,11 +86,7 @@ export function BallerinaCodeBlock({
           className="col-start-1 row-start-1 m-0 overflow-hidden px-4 py-3 font-mono text-sm leading-6 whitespace-pre"
         >
           <code>
-            <HighlightedCode
-              source={source}
-              lang="ballerina"
-              theme="github-light"
-            />
+            <HighlightedCode source={source} lang="ballerina" theme="github-light" />
           </code>
         </pre>
         <textarea
@@ -110,11 +98,16 @@ export function BallerinaCodeBlock({
             setFile(filePath, event.target.value);
             setSource(event.target.value);
           }}
+          onKeyDown={(event) => {
+            if (event.ctrlKey && event.key === "Enter" && isReady && !isRunning) {
+              event.preventDefault();
+              void handleRun();
+            }
+          }}
           onScroll={(event) => {
             if (highlightedCode.current) {
               highlightedCode.current.scrollTop = event.currentTarget.scrollTop;
-              highlightedCode.current.scrollLeft =
-                event.currentTarget.scrollLeft;
+              highlightedCode.current.scrollLeft = event.currentTarget.scrollLeft;
             }
           }}
         />
@@ -125,11 +118,7 @@ export function BallerinaCodeBlock({
           <span className="min-w-0 flex-1 truncate" title={initialCommand}>
             {initialCommand}
           </span>
-          <Button
-            disabled={!isReady || isRunning}
-            variant="ghost"
-            onClick={handleRun}
-          >
+          <Button disabled={!isReady || isRunning} variant="ghost" onClick={handleRun}>
             <HugeiconsIcon icon={PlayIcon} />
             Run
           </Button>
