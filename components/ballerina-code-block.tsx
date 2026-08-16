@@ -122,12 +122,9 @@ export function BallerinaCodeBlock({
       <div className="border-t p-4 text-sm">
         <div className="flex items-center gap-2 font-mono leading-6">
           <span className="select-none text-muted-foreground">$</span>
-          <input
-            className="min-w-0 flex-1 bg-transparent outline-none"
-            disabled={true}
-            spellCheck={false}
-            value={initialCommand}
-          />
+          <span className="min-w-0 flex-1 truncate" title={initialCommand}>
+            {initialCommand}
+          </span>
           <Button
             disabled={!isReady || isRunning}
             variant="ghost"
